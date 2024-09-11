@@ -32,29 +32,27 @@ Add the following lines to crontab:
 # Run backup_uc.sh every day at 1:00am.
 0 1 * * * /opt/backup/backup_uc.sh > /dev/null 2>&1
 
-Install and setup CIFS Utilities Packages
-$ sudo apt update
-$ sudo apt install cifs-utils
-Create /etc/cifs-credentials
-and copy contents of backup\cifs-credentials.txt
-into /etc/cifs-credentials:
-$ sudo nano /etc/cifs-credentials
-Grant the proper permissions to /etc/cifs-credentials:
-$ sudo chmod 600 /etc/cifs-credentials
+- Install and setup CIFS Utilities Packages
+  - $ sudo apt update
+  - $ sudo apt install cifs-utils
+  - Create /etc/cifs-credentials and copy contents of backup\cifs-credentials.txt into /etc/cifs-credentials:
+  - $ sudo nano /etc/cifs-credentials
+  - Grant the proper permissions to /etc/cifs-credentials:
+  - $ sudo chmod 600 /etc/cifs-credentials
 
-Setup automatic mounting of Windows share on boot
-Create /mnt/ucbackup directory:
-$ sudo mkdir /mnt/ucbackup
-Set proper permissions for mountpoint:
-$ sudo chmod 600 /mnt/ucbackup
-Create cifs-credentials file and 
-Setup fstab to mount the mount the Windows share on boot:
-$ sudo nano /etc/fstab
-Add the following lines to fstab:
-# mount UC_Backup share to /mnt/ucbackup on boot
-//<IP address of Windows Server>/<Windows Share Name> /mnt/ucbackup cifs iocharset=utf8,credentials=/etc/cifs-credentials,uid=1000 0 0
-Mount all file systems in /etc/fstab:
-$ sudo mount -a<br/>
+  - Setup automatic mounting of Windows share on boot
+  - Create /mnt/ucbackup directory:
+  - $ sudo mkdir /mnt/ucbackup
+  - Set proper permissions for mountpoint:
+  - $ sudo chmod 600 /mnt/ucbackup
+  - Create cifs-credentials file and 
+  - Setup fstab to mount the mount the Windows share on boot:
+  - $ sudo nano /etc/fstab
+  - Add the following lines to fstab:
+  - # mount UC_Backup share to /mnt/ucbackup on boot
+  //<IP address of Windows Server>/<Windows Share Name> /mnt/ucbackup cifs iocharset=utf8,credentials=/etc/cifs-credentials,uid=1000 0 0
+  - Mount all file systems in /etc/fstab:
+  - $ sudo mount -a<br/>
 <br />
 <br />
 </p>
