@@ -34,6 +34,8 @@ The project consists of an Bash script that backs up the configuration files for
     <span>#</span> Run backup_uc.sh every day at 1:00am.</br>
     0 1 * * * /opt/backup/backup_uc.sh > /dev/null 2>&1
 
+- Create shared folder on the Windows Server and create user with write access to that shared folder</br>
+
 - Install and setup CIFS Utilities Package</br>
   - $ sudo apt update
   - $ sudo apt install cifs-utils
