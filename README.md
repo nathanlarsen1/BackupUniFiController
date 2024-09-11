@@ -18,15 +18,15 @@ The project consists of an Bash script that backs up the configuration files for
 
 <p align="center">
 Setup Backup Script to run at desired time
-Create /opt/backup directory:<br/>
+Create /opt/backup directory:<br/><br/>
 $ sudo mkdir /opt/backup
-Create /opt/backup/backup_uc.sh and copy contents of backup\backup_uc.sh.txt into /opt/backup/backup_uc.sh:<br/>
+Create /opt/backup/backup_uc.sh and copy contents of backup\backup_uc.sh.txt into /opt/backup/backup_uc.sh:<br/><br/>
 $ sudo nano /opt/backup/backup_uc.sh
-Grant the execute permissions to /opt/backup/backup_uc.sh:<br/>
+Grant the execute permissions to /opt/backup/backup_uc.sh:<br/><br/>
 $ sudo chmod +x /opt/backup/backup_uc.sh
-Setup Cron Job to run the backup script at selected time:<br/>
+Setup Cron Job to run the backup script at selected time:<br/><br/>
 $ sudo crontab -e
-Add the following lines to crontab:<br/>
+Add the following lines to crontab:<br/><br/>
 
 # Run backup_uc.sh every day at 1:00am.
 0 1 * * * /opt/backup/backup_uc.sh > /dev/null 2>&1
