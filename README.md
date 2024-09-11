@@ -14,11 +14,47 @@ The project consists of an Bash script that backs up the configuration files for
 - <b>Ubuntu 22.04.4 LTS</b>
 - <b>Windows Server 2019 Standard</b>
 
-<h2>Program notifications</h2>
+<h2>Setup</h2>
 
 <p align="center">
-Dell Service Tag and Express Service Code: <br/>
-<img src="https://i.imgur.com/xsfMD1q.png" height="80%" width="80%" alt="Dell Service Tag and Express Service Code"/>
+Setup Backup Script to run at desired time
+Create /opt/backup directory:
+$ sudo mkdir /opt/backup
+Create /opt/backup/backup_uc.sh
+and copy contents of backup\backup_uc.sh.txt
+into /opt/backup/backup_uc.sh:
+$ sudo nano /opt/backup/backup_uc.sh
+Grant the execute permissions to /opt/backup/backup_uc.sh:
+$ sudo chmod +x /opt/backup/backup_uc.sh
+Setup Cron Job to run the backup script at selected time:
+$ sudo crontab -e
+Add the following lines to crontab:
+# Run backup_uc.sh every day at 1:00am.
+0 1 * * * /opt/backup/backup_uc.sh > /dev/null 2>&1
+
+Install and setup CIFS Utilities Packages
+$ sudo apt update
+$ sudo apt install cifs-utils
+Create /etc/cifs-credentials
+and copy contents of backup\cifs-credentials.txt
+into /etc/cifs-credentials:
+$ sudo nano /etc/cifs-credentials
+Grant the proper permissions to /etc/cifs-credentials:
+$ sudo chmod 600 /etc/cifs-credentials
+
+Setup automatic mounting of Windows share on boot
+Create /mnt/ucbackup directory:
+$ sudo mkdir /mnt/ucbackup
+Set proper permissions for mountpoint:
+$ sudo chmod 600 /mnt/ucbackup
+Create cifs-credentials file and 
+Setup fstab to mount the mount the Windows share on boot:
+$ sudo nano /etc/fstab
+Add the following lines to fstab:
+# mount UC_Backup share to /mnt/ucbackup on boot
+//<IP address of Windows Server>/<Windows Share Name> /mnt/ucbackup cifs iocharset=utf8,credentials=/etc/cifs-credentials,uid=1000 0 0
+Mount all file systems in /etc/fstab:
+$ sudo mount -a<br/>
 <br />
 <br />
 </p>
