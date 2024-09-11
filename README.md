@@ -16,6 +16,11 @@ The project consists of an Bash script that backs up the configuration files for
 
 <h2>Setup</h2>
 
+- Create shared folder and user on Windows Server</br>
+  - Setup shared folder named UC_Backup.
+  - Create user account with name of your choosing.
+  - Grant user write priveleges to shared folder.
+
 - Setup backup script to run at desired time</br>
   - Create /opt/backup directory:</br>
     $ sudo mkdir /opt/backup
@@ -34,16 +39,15 @@ The project consists of an Bash script that backs up the configuration files for
     <span>#</span> Run backup_uc.sh every day at 1:00am.</br>
     0 1 * * * /opt/backup/backup_uc.sh > /dev/null 2>&1
 
-- Create shared folder on the Windows Server and create user with write access to that shared folder</br>
-
 - Install and setup CIFS Utilities Package</br>
   - $ sudo apt update
   - $ sudo apt install cifs-utils
     
-  - Create /etc/cifs-credentials and copy contents of cifs-credentials.txt into /etc/cifs-credentials:</br>
+  - Create /etc/cifs-credentials and copy contents of cifs-credentials.txt into /etc/cifs-credentials.</br>
+    Change username, password and domain to match the credentials of the user created earlier on the Windows Server:</br>
     $ sudo nano /etc/cifs-credentials
     
-  - Grant the proper permissions to /etc/cifs-credentials:</br>
+  - Set the proper permissions to secure the /etc/cifs-credentials file:</br>
     $ sudo chmod 600 /etc/cifs-credentials
 
 - Setup automatic mounting of Windows share on boot</br>
@@ -53,13 +57,13 @@ The project consists of an Bash script that backs up the configuration files for
   - Set proper permissions for mountpoint:</br>
     $ sudo chmod 600 /mnt/ucbackup
     
-  - Create cifs-credentials file and setup fstab to mount the mount the Windows share on boot:</br>
+  - Setup fstab to mount the Windows share on boot:</br>
     $ sudo nano /etc/fstab
 
   - Add the following lines to fstab:</br>
   
     <span>#</span> mount UC_Backup share to /mnt/ucbackup on boot<br/>
-    //<IP address of Windows Server>/<Windows Share Name> /mnt/ucbackup cifs iocharset=utf8,credentials=/etc/cifs-credentials,uid=1000 0 0
+    //\<IP address of Windows Server>/\<Windows Share Name> /mnt/ucbackup cifs iocharset=utf8,credentials=/etc/cifs-credentials,uid=1000 0 0
     
   - Mount all file systems in /etc/fstab:</br>
     $ sudo mount -a
