@@ -49,8 +49,10 @@ Add the following lines to crontab:
   - Setup fstab to mount the mount the Windows share on boot:
   - $ sudo nano /etc/fstab
   - Add the following lines to fstab:
-  - # mount UC_Backup share to /mnt/ucbackup on boot
-  //<IP address of Windows Server>/<Windows Share Name> /mnt/ucbackup cifs iocharset=utf8,credentials=/etc/cifs-credentials,uid=1000 0 0
+  
+    "# mount UC_Backup share to /mnt/ucbackup on boot"
+    //<IP address of Windows Server>/<Windows Share Name> /mnt/ucbackup cifs iocharset=utf8,credentials=/etc/cifs-credentials,uid=1000 0 0
+    
   - Mount all file systems in /etc/fstab:
   - $ sudo mount -a<br/>
 <br />
