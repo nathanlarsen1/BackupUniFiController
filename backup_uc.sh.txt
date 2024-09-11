@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# This script creates incremental backups using rsync and then sends an email with the contents of the backup log file. 
+# Written by Nathan Larsen
+
+# Revision: 11302020.1000
+
+# Get file path of script including filename
+SCRIPTPATH=$(readlink -f "$0")
+
+# Remove filename from file path of script
+SCRIPTDIR=$(dirname "${SCRIPTPATH}")
+
+# Source server name
+SERVER_NAME=$(hostname)
+
+# Source directory
+SRC_DIR="/usr/lib/unifi/data/backup/autobackup/"
+
+# Backup destination base directory
+DEST_DIR="/mnt/ucbackup/"
+
+# Delete old backup log
+LOG_FILE_EXISTS=$(ls "${SCRIPTDIR}/${SERVER_NAME}-backup-data-"*.log 2> /dev/null | wc -l)
+if [ "$LOG_FILE_EXISTS" != "0" ]
+then
+sudo rm "${SCRIPTDIR}/${SERVER_NAME}-backup-data-"*.log
+fi
+
+# Today's date
+TODAY=$(date +%m%d%Y)
+
+# Backup log path and name
+BACKUP_LOG="${SCRIPTDIR}/${SERVER_NAME}-backup-data-${TODAY}.log"
+
+# Create blank log file
+sudo touch "${BACKUP_LOG}"
+
+# Yesterday's date
+YESTERDAY=$(date +%m%d%Y -d "1 day ago")
+
+# rsync options
+# Surround options with double quotes and spaces.
+OPT=( "-avz" "--delete" )
+
+# Backup data directory
+sudo /usr/bin/rsync "${OPT[@]}" "${SRC_DIR}" "${DEST_DIR}" >> "${BACKUP_LOG}"
