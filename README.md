@@ -16,7 +16,7 @@ The project consists of an Bash script that backs up the configuration files for
 
 <h2>Setup</h2>
 
-<p align="center">
+<p align="left">
 Setup Backup Script to run at desired time
 Create /opt/backup directory:<br/><br/>
 $ sudo mkdir /opt/backup
