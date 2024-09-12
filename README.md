@@ -2,7 +2,7 @@
 
 
 <h2>Description</h2>
-The project consists of an Bash script that backs up the configuration files for Unifi Controller to a Windows Share.<br/>
+This project consists of an Bash script that backs up the configuration files for Unifi Controller to a Windows Share.<br/>
 
 <h2>Language and Applications</h2>
 
